@@ -6,7 +6,7 @@ import { useAppSelector } from '../store/storeHooks';
 import { selectCurrentUser } from '../store/slices/authSlice';
 import { selectCurrentFranchisor } from '../store/slices/authSlice';
 
-import { useAllWorkspaceQuery } from '../api/workspace';
+import { useAllWorkspaceMutation } from '../api/workspace';
 import { useCurrentUserQuery } from '../api/user';
 
 import MainHeader from '../shared/Global/Header/MainHeader';
@@ -19,9 +19,8 @@ const PrivateLayout = () => {
     const [current, setCurrent] = useState('db');
     const me = useAppSelector(selectCurrentUser);
     const franchisor = useAppSelector(selectCurrentFranchisor);
-    useAllWorkspaceQuery({id: franchisor || 0})
     useCurrentUserQuery();
-
+    
     const {
         token: { colorBgContainer },
     } = theme.useToken();

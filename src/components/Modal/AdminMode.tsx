@@ -4,7 +4,6 @@ import { selectFranchaiserList } from "../../store/slices/franchiser";
 import { selectFranchaiseeList } from "../../store/slices/franchisee";
 import { useAllFranchaisorQuery } from "../../api/franchaisor";
 import { useAllFranchaiseeQuery } from "../../api/franchaisee";
-import { useState } from "react";
 
 type Props = {
     setCurrentFranchisorNumber: (id: number) => void;
@@ -13,13 +12,12 @@ type Props = {
     setIsFranchaisor: (checked: boolean) => void;
 }
 const AdminMode = ({setCurrentFranchisorNumber, setCurrentFranchiseeNumber, setIsFranchaisor, isFranchaisor}: Props) => {
+    
     useAllFranchaisorQuery();
     useAllFranchaiseeQuery();
     
     const franchaisorList = useAppSelector(selectFranchaiserList)
     const franchaiseeList = useAppSelector(selectFranchaiseeList)
-
-    
 
     const onChange = (checked: boolean) => {
         setIsFranchaisor(checked)
@@ -34,7 +32,7 @@ const AdminMode = ({setCurrentFranchisorNumber, setCurrentFranchiseeNumber, setI
 
     return (
         <Space direction="vertical" size="large" style={{width: '100%'}}>
-            <Switch checkedChildren="Франчайзеры" unCheckedChildren="Франчайзи" defaultChecked onChange={onChange} />
+            <Switch checkedChildren="Франчайзеры" unCheckedChildren="Франчайзи" defaultChecked={isFranchaisor} onChange={onChange} />
             <Select
                 style={{ width: '100%' }}
                 onChange={handleChange}

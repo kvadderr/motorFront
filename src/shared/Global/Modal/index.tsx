@@ -10,8 +10,11 @@ import { selectCurrentFranchisor } from "../../../store/slices/authSlice";
 import { useCreateWorkspaceMutation } from "../../../api/workspace";
 import { addWorkspace, selectWorkspaceList } from "../../../store/slices/workspace";
 import { useSignUpMutation } from "../../../api/auth";
+import { useAllWorkspaceMutation } from "../../../api/workspace";
 
 const ModalData = () => {
+
+    const [getWorkspece] = useAllWorkspaceMutation()
 
     const isModalOpen = useAppSelector(selectShowModal);
     const isModalFranchiseeInvite = useAppSelector(selectShowModalFranchiseeInvite);
@@ -57,12 +60,12 @@ const ModalData = () => {
     }
 
     const handleOkAdminMode = () => {
-
          if(!isFranchaisor) 
         {
             dispatch(setCurrentFranchisee(currentFranchiseeNumber))
             dispatch(setCurrentFranchisor(null))
         } else {
+            getWorkspece({id: currentFranchisorNumber});
             dispatch(setCurrentFranchisee(null))
             dispatch(setCurrentFranchisor(currentFranchisorNumber))
         }

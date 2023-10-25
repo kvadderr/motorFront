@@ -1,20 +1,73 @@
 import { Button, Checkbox, Form, Input } from 'antd';
 import { useSignInMutation } from '../../api/auth';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useGetMeQuery } from '../../api/user';
+import { Content } from 'antd/es/layout/layout';
 
 type FieldType = {
-    login?: string;
+    fio?: string;
     password?: string;
-    isFranchisor?: boolean;
+    phone?: string;
+
 };
 
 const Register = () => {
 
     const [signIn] = useSignInMutation();
+    const [searchParams, setSearchParams] = useSearchParams()
     const [signInValue, setSignInValie] = useState({
         email: '',
-        password: '' 
+        password: ''
     })
+
+   
+    const { data: myData } = useGetMeQuery({ token: searchParams.get('token') || "" });
+
+    const [franchiseeValue, setFranchiseeValue] = useState({
+        id: myData?.id,
+        email: myData?.email,
+        password: '',
+        phone: '',
+        franchisee: {
+            llc: 'Loool' 
+        }
+    })
+
+    const [password, setPassword] = useState('');
+    const [phone, setPhone] = useState(''); 
+    
+
+
+    const franchiseeFormSumbit = () => {
+        console.log(franchiseeValue)    
+    }
+
+
+    const FranchiseeForm = () => {
+        return (
+            <div style={{gap: 20, display: 'flex', flexWrap: 'wrap'}}>
+                <Input placeholder='Номер телефона' onChange={(e) => setFranchiseeValue({ ...franchiseeValue, phone: e.target.value })} />
+                <Input placeholder='Пароль' onChange={(e) => setFranchiseeValue({ ...franchiseeValue, password: e.target.value })} />
+                <Input placeholder='ИНН' onChange={(e) => setFranchiseeValue({ ...franchiseeValue, email: e.target.value })} />
+                <Button type="primary" htmlType="submit" onClick={franchiseeFormSumbit}>
+                    Зарегестрировать
+                </Button>
+            </div>
+        )
+    }
+
+    const EmployeeForm = () => {
+        return (
+            <div style={{gap: 20, display: 'flex', flexWrap: 'wrap'}}>
+                <h2>ТУТ МНОГО ДРУГИХ ДАННЫХ СОТРУДНИКА</h2>
+                <Input placeholder='Придумайте пароль' onChange={(e) => setSignInValie({ ...signInValue, email: e.target.value })} />
+                <Button type="primary" htmlType="submit" onClick={onSubmit}>
+                    Зарегестрировать
+                </Button>
+            </div>
+        )
+    }
 
     async function onSubmit() {
         try {
@@ -25,44 +78,9 @@ const Register = () => {
     }
 
     return (
-        <Form
-            name="basic"
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 16 }}
-            style={{ maxWidth: 600 }}
-            initialValues={{ remember: true }}
-            autoComplete="off"
-        >
-            <Form.Item<FieldType>
-                label="Логин"
-                name="login"
-                rules={[{ required: true, message: 'Please input your username!' }]}
-            >
-                <Input onChange={(e) => setSignInValie({...signInValue, email: e.target.value})}/>
-            </Form.Item>
-
-            <Form.Item<FieldType>
-                label="Пароль"
-                name="password"
-                rules={[{ required: true, message: 'Please input your password!' }]}
-            >
-                <Input.Password onChange={(e) => setSignInValie({...signInValue, password: e.target.value})}/>
-            </Form.Item>
-
-            <Form.Item<FieldType>
-                name="isFranchisor"
-                valuePropName="checked"
-                wrapperCol={{ offset: 8, span: 16 }}
-            >
-                <Checkbox>Я - франчайзер</Checkbox>
-            </Form.Item>
-
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                <Button type="primary" htmlType="submit" onClick={onSubmit}>
-                    Вход
-                </Button>
-            </Form.Item>
-        </Form>
+        <Content style={{padding: 40}}>
+            <FranchiseeForm />
+        </Content>
     )
 }
 

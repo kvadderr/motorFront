@@ -4,7 +4,7 @@ import { GetAllWorkSpaceDto } from '../@types/dto/workspace/get-all.dto';
 
 const workspaceApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    allWorkspace: builder.query<Workspace[], GetAllWorkSpaceDto>({
+    allWorkspace: builder.mutation<Workspace[], GetAllWorkSpaceDto>({
       query: dto => ({
         url: `/spacework/${dto.id}`,
         method: 'GET',
@@ -25,7 +25,7 @@ const workspaceApi = baseApi.injectEndpoints({
 });
 
 export const {
-  useAllWorkspaceQuery,
+  useAllWorkspaceMutation,
   useCreateWorkspaceMutation
 } = workspaceApi;
 
