@@ -13,7 +13,7 @@ const franchisorApi = baseApi.injectEndpoints({
       }),
       providesTags: ['Franchaisor'],
     }),
-    getMe: builder.query<Franchaisor, void>({
+    getMeAtFranchaisor: builder.query<Franchaisor, void>({
       query: () => ({
         url: '/franchisor/me',
         method: 'GET',
@@ -28,7 +28,7 @@ const franchisorApi = baseApi.injectEndpoints({
 
 export const {
   useAllFranchaisorQuery,
-  useGetMeQuery
+  useGetMeAtFranchaisorQuery
 } = franchisorApi;
 
 export default franchisorApi;

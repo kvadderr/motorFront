@@ -1,6 +1,7 @@
 import { Button, Checkbox, Form, Input, notification } from 'antd';
 import { useSignInMutation } from '../../api/auth';
 import { useState } from 'react';
+import { Content } from 'antd/es/layout/layout';
 
 type FieldType = {
     login?: string;
@@ -38,46 +39,48 @@ const Signin = () => {
     }
 
     return (
-        <Form
-            name="basic"
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 16 }}
-            style={{ maxWidth: 600 }}
-            initialValues={{ remember: true }}
-            autoComplete="off"
-        >
-            <Form.Item<FieldType>
-                label="Логин"
-                name="login"
-                rules={[{ required: true, message: 'Please input your username!' }]}
+        <Content style={{paddingTop: 40}}>
+            <Form
+                name="basic"
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
+                style={{ maxWidth: 600 }}
+                initialValues={{ remember: true }}
+                autoComplete="off"
             >
-                <Input onChange={(e) => setSignInValie({ ...signInValue, email: e.target.value })} />
-            </Form.Item>
-            {
-                !isFranchaisor && <Form.Item<FieldType>
-                    label="Пароль"
-                    name="password"
-                    rules={[{ required: true, message: 'Please input your password!' }]}
+                <Form.Item<FieldType>
+                    label="Логин"
+                    name="login"
+                    rules={[{ required: true, message: 'Please input your username!' }]}
                 >
-                    <Input.Password onChange={(e) => setSignInValie({ ...signInValue, password: e.target.value })} />
+                    <Input onChange={(e) => setSignInValie({ ...signInValue, email: e.target.value })} />
                 </Form.Item>
-            }
+                {
+                    !isFranchaisor && <Form.Item<FieldType>
+                        label="Пароль"
+                        name="password"
+                        rules={[{ required: true, message: 'Please input your password!' }]}
+                    >
+                        <Input.Password onChange={(e) => setSignInValie({ ...signInValue, password: e.target.value })} />
+                    </Form.Item>
+                }
 
 
-            <Form.Item<FieldType>
-                name="isFranchisor"
-                valuePropName="checked"
-                wrapperCol={{ offset: 8, span: 16 }}
-            >
-                <Checkbox checked={isFranchaisor} onChange={(e) => setIsFranchaisor(e.target.checked)}>Я - франчайзер</Checkbox>
-            </Form.Item>
+                <Form.Item<FieldType>
+                    name="isFranchisor"
+                    valuePropName="checked"
+                    wrapperCol={{ offset: 8, span: 16 }}
+                >
+                    <Checkbox checked={isFranchaisor} onChange={(e) => setIsFranchaisor(e.target.checked)}>Я - франчайзер</Checkbox>
+                </Form.Item>
 
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                <Button type="primary" htmlType="submit" onClick={onSubmit}>
-                    Вход
-                </Button>
-            </Form.Item>
-        </Form>
+                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                    <Button type="primary" htmlType="submit" onClick={onSubmit}>
+                        Вход
+                    </Button>
+                </Form.Item>
+            </Form>
+        </Content>
     )
 }
 

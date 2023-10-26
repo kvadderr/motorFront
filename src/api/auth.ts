@@ -34,6 +34,15 @@ const authApi = baseApi.injectEndpoints({
             }),
         }),
 
+        updateInfo: builder.mutation<{ accessToken: string; }, SignUpDto | SignUpWithoutPassDto>({
+            query: dto => ({
+                url: '/user/',
+                body: dto,
+                method: 'POST',
+            }),
+        }),
+        
+
     }),
 });
 
@@ -41,7 +50,8 @@ export const {
     useSignInMutation,
     useSignOutMutation,
     useRefreshMutation,
-    useSignUpMutation
+    useSignUpMutation,
+    useUpdateInfoMutation
 } = authApi;
 
 export default authApi;

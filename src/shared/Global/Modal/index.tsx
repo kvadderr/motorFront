@@ -34,6 +34,7 @@ const ModalData = () => {
     const dispatch = useDispatch();
 
     const handleOk = async () => {
+        console.log(currentFranchisor);
         dispatch(setShowModal(false));
         const data = { franchisor_id: currentFranchisor, name: workspaceName }
         currentFranchisor && await createWorkspace(data).unwrap();

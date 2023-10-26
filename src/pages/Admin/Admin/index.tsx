@@ -6,10 +6,9 @@ import { useState } from "react";
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import AdminRegister from "../../../components/RegistrationForm/AdminRegister";
 import FranchisorRegister from "../../../components/RegistrationForm/FranchisorRegister";
-import FranchiseeRegister from "../../../components/RegistrationForm/FranchiseeRegister";
 
-import { useSignOutMutation } from "../../../api/auth";
-import Sidebar from "../../../shared/Global/Sidebar/Sidebar";
+import Exit from "../../../components/RegistrationForm/Exit";
+
 
 const items: TabsProps['items'] = [
     {
@@ -30,7 +29,7 @@ const items: TabsProps['items'] = [
     {
         key: '6',
         label: 'Выход',
-        children: <Button onClick={() => useSignOutMutation} >Выйти из аккаунта</Button>
+        children: <Exit />
     },
 ];
 

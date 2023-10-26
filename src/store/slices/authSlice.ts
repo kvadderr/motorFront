@@ -30,6 +30,7 @@ const slice = createSlice({
   } as AuthState,
   reducers: {
     setCurrentFranchisor: (state, action) => {
+      console.log('dispatch', action)
       state.currentFranchisor = action.payload
     },
     setCurrentFranchisee: (state, action) => {
